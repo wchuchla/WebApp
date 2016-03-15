@@ -4,7 +4,7 @@ public class Logger {
 
     private static Logger INSTANCE;
 
-    private Logger() {
+    public Logger() {
     }
 
     public static Logger getInstance() {
