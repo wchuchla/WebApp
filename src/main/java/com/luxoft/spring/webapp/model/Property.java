@@ -5,8 +5,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import java.util.Date;
 
@@ -14,10 +13,6 @@ import static javax.persistence.EnumType.STRING;
 import static javax.persistence.TemporalType.TIMESTAMP;
 
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "Property.getAll", query = "select p from Property p"),
-        @NamedQuery(name = "Property.getByName", query = "select p from Property p where p.name = :name")
-})
 public class Property {
 
     @Id
@@ -32,6 +27,9 @@ public class Property {
 
     @Temporal(TIMESTAMP)
     private Date creationDate;
+
+    @ManyToOne
+    private PropertyCategory category;
 
     public Property() {
     }

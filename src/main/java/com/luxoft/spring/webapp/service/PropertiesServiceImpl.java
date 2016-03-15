@@ -1,13 +1,14 @@
 package com.luxoft.spring.webapp.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luxoft.spring.webapp.model.Property;
 import com.luxoft.spring.webapp.repository.JpaPropertiesRepository;
 import com.luxoft.spring.webapp.utils.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.Collection;
 
 @Service
@@ -18,6 +19,7 @@ public class PropertiesServiceImpl implements PropertiesService {
     private Logger LOGGER;
 
     @Autowired
+    @JsonIgnore
     @Qualifier("jpaPropertiesRepository")
     private JpaPropertiesRepository propertiesRepository;
 
