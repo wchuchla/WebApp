@@ -1,16 +1,54 @@
 package com.luxoft.spring.webapp.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import java.util.Date;
+
+import static javax.persistence.EnumType.STRING;
+import static javax.persistence.TemporalType.TIMESTAMP;
+
+@Entity
+@NamedQueries({
+    @NamedQuery(name = "Property.getAll", query = "select p from Property p"),
+        @NamedQuery(name = "Property.getByName", query = "select p from Property p where p.name = :name")
+})
 public class Property {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String name;
     private String value;
 
+    @Enumerated(STRING)
+    private PropertyType type;
+
+    @Temporal(TIMESTAMP)
+    private Date creationDate;
+
     public Property() {
     }
 
-    public Property(String name, String value) {
+    public Property(String name, String value, PropertyType type, Date creationDate) {
         this.name = name;
         this.value = value;
+        this.type = type;
+        this.creationDate = creationDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -29,6 +67,22 @@ public class Property {
         this.value = value;
     }
 
+    public PropertyType getType() {
+        return type;
+    }
+
+    public void setType(PropertyType type) {
+        this.type = type;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -36,16 +90,12 @@ public class Property {
 
         Property property = (Property) o;
 
-        if (getName() != null ? !getName().equals(property.getName()) : property.getName() != null) return false;
-        return getValue() != null ? getValue().equals(property.getValue()) : property.getValue() == null;
+        return id != null ? id.equals(property.id) : property.id == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = getName() != null ? getName().hashCode() : 0;
-        result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
-        return result;
+        return id != null ? id.hashCode() : 0;
     }
-
 }
