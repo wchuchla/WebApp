@@ -18,7 +18,11 @@ public class MemoryPropertiesRepository implements PropertiesRepository {
 
     @Override
     public Property getProperty(String name) {
-        return null;
+        return properties
+                .stream()
+                .filter(property -> property.getName().equals(name))
+                .findFirst()
+                .get();
     }
 
     @Override
