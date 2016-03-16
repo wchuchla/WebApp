@@ -27,7 +27,13 @@ public class PropertyCategoryServiceImpl implements PropertyCategoryService {
     }
 
     @Override
-    public void addProperty(Long categoryId, Property property) {
+    public void addPropertyCategory(PropertyCategory propertyCategory) {
+        jpaPropertyCategoryRepository.save(propertyCategory);
+    }
 
+    @Override
+    public void addProperty(Long categoryId, Property property) {
+        PropertyCategory category = jpaPropertyCategoryRepository.findOne(categoryId);
+        category.addProperty(property);
     }
 }

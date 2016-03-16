@@ -1,5 +1,6 @@
 package com.luxoft.spring.webapp.model;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -30,6 +31,9 @@ public class Property {
 
     @ManyToOne
     private PropertyCategory category;
+
+    @Embedded
+    private UserInfo createdBy;
 
     public Property() {
     }
@@ -79,6 +83,22 @@ public class Property {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public PropertyCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(PropertyCategory category) {
+        this.category = category;
+    }
+
+    public UserInfo getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(UserInfo createdBy) {
+        this.createdBy = createdBy;
     }
 
     @Override

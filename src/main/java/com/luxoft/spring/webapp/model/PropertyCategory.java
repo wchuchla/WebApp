@@ -33,4 +33,8 @@ public class PropertyCategory {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void addProperty(Property property) {
+        properties.add(property);
+    }
 }

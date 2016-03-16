@@ -11,5 +11,7 @@ public interface PropertyCategoryService {
 
     PropertyCategory getById(Long id);
 
+    void addPropertyCategory(PropertyCategory propertyCategory);
+
     void addProperty(Long categoryId, Property property);
 }

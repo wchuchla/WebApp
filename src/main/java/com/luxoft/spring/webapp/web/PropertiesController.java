@@ -20,11 +20,6 @@ public class PropertiesController {
     @Autowired
     private PropertiesService propertiesService;
 
-    @RequestMapping(value = "/{name}", method = GET)
-    public Property getByName(@PathVariable String name) {
-        return propertiesService.getProperty(name);
-    }
-
     @RequestMapping(method = GET)
     public Collection<Property> getAll() {
         return propertiesService.getAll();
@@ -33,5 +28,10 @@ public class PropertiesController {
     @RequestMapping(method = POST)
     public void addProperty(@RequestBody Property property) {
         propertiesService.addProperty(property);
+    }
+
+    @RequestMapping(value = "/{name}", method = GET)
+    public Property getByName(@PathVariable String name) {
+        return propertiesService.getProperty(name);
     }
 }
