@@ -6,6 +6,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import java.util.Date;
@@ -14,14 +16,14 @@ import static javax.persistence.EnumType.STRING;
 import static javax.persistence.TemporalType.TIMESTAMP;
 
 @Entity
-public class Property {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class Property<T> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
-    private String value;
 
     @Enumerated(STRING)
     private PropertyType type;
@@ -38,9 +40,8 @@ public class Property {
     public Property() {
     }
 
-    public Property(String name, String value, PropertyType type, Date creationDate) {
+    public Property(String name, PropertyType type, Date creationDate) {
         this.name = name;
-        this.value = value;
         this.type = type;
         this.creationDate = creationDate;
     }
@@ -61,13 +62,9 @@ public class Property {
         this.name = name;
     }
 
-    public String getValue() {
-        return value;
-    }
+    public abstract T getValue();
 
-    public void setValue(String value) {
-        this.value = value;
-    }
+    public abstract void setValue(T value);
 
     public PropertyType getType() {
         return type;
