@@ -3,8 +3,6 @@ package com.luxoft.spring.webapp.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -18,20 +16,6 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.luxoft.spring.webapp.repository")
 public class DatabaseConfig {
-
-    @Bean
-    public DataSource dataSource() {
-        EmbeddedDatabaseBuilder embeddedDatabaseBuilder = new EmbeddedDatabaseBuilder();
-
-        return embeddedDatabaseBuilder
-                .setType(EmbeddedDatabaseType.H2)
-                .build();
-    }
-
-    @Bean
-    public JpaTransactionManager transactionManager() {
-        return new JpaTransactionManager();
-    }
 
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
@@ -52,6 +36,11 @@ public class DatabaseConfig {
         emfb.setJpaVendorAdapter(jpaVendorAdapter);
         emfb.setPackagesToScan("com.luxoft.spring.webapp.model");
         return emfb;
+    }
+
+    @Bean
+    public JpaTransactionManager transactionManager() {
+        return new JpaTransactionManager();
     }
 
 }
